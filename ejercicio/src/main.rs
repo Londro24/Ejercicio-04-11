@@ -4,18 +4,18 @@ use std::io::Read;
 use std::fs::OpenOptions;
 use std::io::Write;
 
-//creación de estrcutura
+
 #[derive(Default)]
-struct Persona{
+struct Persona{ //creación de estrcutura
     nombre: String,
     edad: u8,
     rut: String,
     mascota: [Mascota; 5]
 }
 
-//creación de sub-estrcutura
+
 #[derive(Default)]
-struct Mascota{
+struct Mascota{ //creación de sub-estrcutura
     nombre: String, 
     tipo: String,
     color: String,
@@ -49,7 +49,7 @@ fn open_file_to_append(p: &Path) -> File{ //Abre el archivo para escribir en el
         Err(_why) => panic!("No se puede abrir el archivo"),
         Ok(file) => file,
     };
-
+    //
     return file
 }
 
@@ -70,54 +70,54 @@ fn open_file_to_read(p: &Path){ //Verifica si existe
 fn crear_personas() -> [Persona;3] { // Crea el array de personas
     // Primera persona
     let m1 = Mascota{nombre:"Nora".to_string(),
-                                tipo:"Perro".to_string(),
-                                color:"Negro".to_string()
+        tipo:"Perro".to_string(),
+        color:"Negro".to_string()
     };
-
+    //
     let mut p1 = Persona{nombre:"Sofia".to_string(),
-                                    edad: 18,
-                                    rut: "77777777-7".to_string(),
-                                    mascota: Default::default()
+        edad: 18,
+        rut: "77777777-7".to_string(),
+        mascota: Default::default()
     };
-
+    //
     p1.mascota[0] = m1;
-
+    //
     // Segunda Persona
     let m1 = Mascota{nombre:"Goten".to_string(),
-                                tipo:"Gato".to_string(),
-                                color:"Cafe".to_string()
+        tipo:"Gato".to_string(),
+        color:"Cafe".to_string()
     };
-
+    //
     let mut p2 = Persona{nombre:"Alejandro".to_string(),
-                                    edad: 19,
-                                    rut: "22222222-2".to_string(),
-                                    mascota: Default::default()
+        edad: 19,
+        rut: "22222222-2".to_string(),
+        mascota: Default::default()
     };
-
+    //
     p2.mascota[0] = m1;
-
+    //
     // Tercera Persona
     let m1 = Mascota{nombre:"Blue".to_string(),
-                                tipo:"Pajaro".to_string(),
-                                color:"Azul".to_string()
+        tipo:"Pajaro".to_string(),
+        color:"Azul".to_string()
     };
-
+    //
     let m2 = Mascota{nombre:"Green".to_string(),
-                                tipo:"Pajaro".to_string(),
-                                color:"Verde".to_string()
+        tipo:"Pajaro".to_string(),
+        color:"Verde".to_string()
     };
-
+    //
     let mut p3 = Persona{nombre:"Marcelo".to_string(),
-                                    edad: 19,
-                                    rut: "55555555-5".to_string(),
-                                    mascota: Default::default()
+        edad: 19,
+        rut: "55555555-5".to_string(),
+        mascota: Default::default()
     };
-
+    //
     p3.mascota[0] = m1;
     p3.mascota[1] = m2;
-
+    //
     let registro: [Persona;3] = [p1, p2, p3];
-
+    //
     return registro;
 }
 
@@ -128,7 +128,7 @@ fn registrar_persona(p: &Path, registro: [Persona;3]){ //Genera datos
         registro[persona].edad, 
         registro[persona].rut
         );
-
+        //
         for mascota in 0..5 {
             if mascota != 4 && registro[persona].mascota[mascota].nombre != registro[persona].mascota[mascota + 1].nombre{
                 temp = format!("{}:{}:{}:{}", temp,
@@ -140,9 +140,8 @@ fn registrar_persona(p: &Path, registro: [Persona;3]){ //Genera datos
                 temp = format!("{}:\n", temp);
                 break;
             }
-
         }
-    
+        //
         let mut file = open_file_to_append(p);
         file.write_all(temp.as_bytes());
     }
@@ -156,4 +155,5 @@ fn main(){
     //add_new_content(&file);
     let registro: [Persona;3] = crear_personas();
     registrar_persona(path, registro);
+    
 }
