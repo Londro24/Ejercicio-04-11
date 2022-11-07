@@ -143,7 +143,7 @@ fn registrar_persona(p: &Path, registro: [Persona;3]){ //Genera datos
         }
         //
         let mut file = open_file_to_append(p);
-        file.write_all(temp.as_bytes());
+        file.write_all(temp.as_bytes()).unwrap();
     }
 }
 
